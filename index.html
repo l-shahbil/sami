@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>SAMI - رقم عيديتك</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/png" sizes="32x32" href="../images/logo.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../images/logo.png">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* =========================
+       ROOT
+    ========================= */
+    :root {
+
+      --c-bg: #0c4a52;
+      --c-orange: #e8761a;
+
+      --c-white: #ffffff;
+      --c-muted: rgba(255,255,255,0.58);
+
+      --c-border: rgba(255,255,255,0.16);
+      --c-card: rgba(255,255,255,0.05);
+
+      --font: 'Tajawal', sans-serif;
+
+      --page-max: 480px;
+      --radius: 18px;
+
+      --title-ar: clamp(1.9rem, 6vw, 2.8rem);
+      --title-en: 0.78rem;
+
+      --num-size: clamp(4rem, 13dvh, 6.5rem);
+
+      --badge-w: clamp(108px, 26vw, 145px);
+      --logo-w: clamp(82px, 20vw, 115px);
+    }
+
+    /* =========================
+       RESET
+    ========================= */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      position: relative;
+
+      overflow-x: hidden;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-family: var(--font);
+
+      color: var(--c-white);
+      background: var(--c-bg);
+    }
+
+    /* =========================
+       BACKGROUND
+    ========================= */
+    .bg {
+      position: fixed;
+      inset: 0;
+
+      background:
+        center center / cover no-repeat;
+
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* =========================
+       PAGE
+    ========================= */
+    .page {
+      position: relative;
+      z-index: 1;
+
+      width: min(100%, var(--page-max));
+      min-height: 100dvh;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      gap: clamp(20px, 3dvh, 34px);
+
+      padding:
+        calc(env(safe-area-inset-top) + 22px)
+        24px
+        calc(env(safe-area-inset-bottom) + 24px);
+    }
+
+    /* =========================
+       TOP ROW
+    ========================= */
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      min-height: 90px;
+    }
+
+    .eid-badge {
+      width: var(--badge-w);
+      object-fit: contain;
+    }
+
+    .logo {
+      width: var(--logo-w);
+      object-fit: contain;
+    }
+
+    /* =========================
+       TITLE
+    ========================= */
+    .title {
+      text-align: center;
+    }
+
+    .title__ar {
+      font-size: var(--title-ar);
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .title__en {
+      margin-top: 8px;
+
+      font-size: var(--title-en);
+      letter-spacing: 0.14em;
+
+      color: var(--c-muted);
+    }
+
+    /* =========================
+       CARD
+    ========================= */
+    .card {
+      min-height: clamp(190px, 25dvh, 260px);
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      padding: 24px;
+
+      border-radius: var(--radius);
+
+      background: var(--c-card);
+
+      border: 1.5px solid var(--c-border);
+
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .card__number {
+      font-size: var(--num-size);
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .card__loading {
+      color: rgba(255,255,255,0.26);
+    }
+
+    .card__error {
+      display: none;
+
+      margin-top: 10px;
+
+      font-size: 0.88rem;
+      color: #ff9b9b;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+    .footer {
+      text-align: center;
+    }
+
+    .footer__ar {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .footer__highlight {
+      display: inline-block;
+
+      margin-inline: 4px;
+      padding: 2px 10px;
+
+      border-radius: 7px;
+
+      background: var(--c-orange);
+    }
+
+    .footer__en {
+      margin-top: 6px;
+
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+
+      color: var(--c-muted);
+    }
+
+    /* =========================
+       DESKTOP
+    ========================= */
+    @media (min-width: 700px) {
+
+      .page {
+        min-height: auto;
+
+        border-radius: 26px;
+
+        background: rgba(12, 74, 82, 0.56);
+
+        border: 1px solid rgba(255,255,255,0.1);
+
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+      }
+    }
+
+    /* =========================
+       iPhone 14 Pro Max
+    ========================= */
+    @media (max-width: 430px) and (min-height: 850px) {
+
+      .page {
+        gap: 28px;
+      }
+
+      .card {
+        min-height: 210px;
+      }
+
+      .card__number {
+        font-size: clamp(4.5rem, 12dvh, 6.5rem);
+      }
+
+      .eid-badge {
+        width: 128px;
+      }
+
+      .logo {
+        width: 102px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg"></div>
+
+  <main class="page">
+
+    <!-- TOP -->
+    <div class="top-row">
+
+      <img
+        src="../images/aid_mubark.png"
+        class="eid-badge"
+        alt="eid"
+      />
+
+      <img
+        src="../images/logo.png"
+        class="logo"
+        alt="logo"
+      />
+
+    </div>
+
+    <!-- TITLE -->
+    <section class="title">
+
+      <h1 class="title__ar">
+        رقم عيديتك
+      </h1>
+
+      <p class="title__en">
+        YOUR EIDI NUMBER
+      </p>
+
+    </section>
+
+    <!-- CARD -->
+    <section class="card">
+
+      <div
+        id="numberEl"
+        class="card__number card__loading"
+      >
+        ...
+      </div>
+
+      <div
+        id="errorEl"
+        class="card__error"
+      >
+        حدث خطأ، حاول مجددًا
+      </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+      <div class="footer__ar">
+        كل عام وأنتم
+        <span class="footer__highlight">
+          بخير
+        </span>
+      </div>
+
+      <div class="footer__en">
+        EID MUBARAK
+      </div>
+
+    </footer>
+
+  </main>
+
+  <script>
+  const FUNCTION_URL = 'https://bdrrjrrharkwlpkodivk.supabase.co/functions/v1/quick-worker';
+  const ANON_KEY     = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkcnJqcnJoYXJrd2xwa29kaXZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzMDc3NTAsImV4cCI6MjA5NDg4Mzc1MH0._wKMh1iC6y4lr1nosXMs1c0E4i3KSFoY5W-yIfu0OY8';
+  const STORAGE_KEY  = 'sami_session_id';
+  const NUMBER_KEY   = 'sami_number';
+
+  const el       = document.getElementById('numberEl');
+  const errorMsg = document.getElementById('errorEl');
+
+  // توليد UUID أو قراءته من localStorage
+  function getSessionId() {
+    let id = localStorage.getItem(STORAGE_KEY);
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem(STORAGE_KEY, id);
+    }
+    return id;
+  }
+
+  async function loadNumber() {
+    // لو عنده رقم محفوظ — اعرضه مباشرة
+    const saved = localStorage.getItem(NUMBER_KEY);
+    if (saved) {
+      showNumber(saved);
+      return;
+    }
+
+    // أول مرة — اطلب من الـ Edge Function
+    try {
+      const session_id = getSessionId();
+
+      const res = await fetch(FUNCTION_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${ANON_KEY}`
+        },
+        body: JSON.stringify({ session_id })
+      });
+
+      if (!res.ok) throw new Error('Server error');
+
+      const data = await res.json();
+      const number = data.number;
+
+      if (!number) throw new Error('No number returned');
+
+      // حفظ الرقم محلياً
+      localStorage.setItem(NUMBER_KEY, number);
+      showNumber(number);
+
+    } catch (err) {
+      el.classList.remove('card__loading');
+      el.textContent = '';
+      errorMsg.style.display = 'block';
+      console.error(err);
+    }
+  }
+
+  function showNumber(num) {
+    el.classList.remove('card__loading');
+    el.textContent = String(num).padStart(2, '0');
+  }
+
+  loadNumber();
+</script>
+
+</body>
+</html>
